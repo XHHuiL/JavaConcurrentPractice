@@ -1,7 +1,6 @@
 package com.company.foo;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class ThreeWaysToUseThread {
@@ -9,7 +8,7 @@ public class ThreeWaysToUseThread {
     // First Way: implements Callable interface
     private static class MyCallable implements Callable<String> {
         @Override
-        public String call() throws Exception {
+        public String call() throws InterruptedException {
             Thread.sleep(1000);
             System.out.println("Call MyCallable");
             return "MyCallable";
@@ -33,7 +32,7 @@ public class ThreeWaysToUseThread {
         }
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         MyCallable myCallable = new MyCallable();
         FutureTask<String> task = new FutureTask<>(myCallable);
         Thread thread = new Thread(task);
